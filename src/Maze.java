@@ -606,7 +606,11 @@ class Maze extends World {
 
   public static void main(String[] args) {
     ExamplesMaze m = new ExamplesMaze();
-    m.testBigBang(new Tester());
+    try {
+      m.testBigBang(new Tester(), Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+    } catch (ArrayIndexOutOfBoundsException e) {
+      System.out.println("Not enough arguments");
+    }
   }
 }
 
@@ -707,13 +711,14 @@ class ExamplesMaze {
   }
 
   // showing the maze
-  void testBigBang(Tester t) {
+  void testBigBang(Tester t, int numWidth, int numHeight) {
     this.initData();
     int width = 900;
     int height = 600;
     // make it run as fast as possible, change for grading if needed
     double tickRate = 0.0000000001;
-    this.maze1.bigBang(width, height, tickRate);
+    Maze m = new Maze(numWidth, numHeight);
+    m.bigBang(width, height, tickRate);
   }
 
   // TESTS FOR THE MAZE CLASS
